@@ -2,7 +2,7 @@
 
 pre-requisites:
 
-- DB Browser for SQLite installed in the machine.
+- DB Browser for SQLite does __NOT__ need to be installed in the machine.
 
 From the root of the project directory run the following command
 ```console
