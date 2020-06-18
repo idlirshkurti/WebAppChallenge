@@ -5,15 +5,15 @@ import os
 
 fname = 'input/task_data.csv'
 
-if os.path.exists('example.db'):
-    os.remove('example.db')
+#if os.path.exists('example.db'):
+#    os.remove('example.db')
 
 conn = sqlite3.connect('example.db', check_same_thread=False)
 cur = conn.cursor()
 
 cur.execute('DROP TABLE IF EXISTS example')
 cur.execute('''
-CREATE TABLE "task_data"(
+CREATE TABLE IF NOT EXISTS "task_data"(
     "id"   INTEGER,
     "timestamp"   TEXT,
     "temperature"   REAL,
@@ -22,7 +22,7 @@ CREATE TABLE "task_data"(
 ''')
 
 cur.execute('''
-CREATE TABLE "logs"(
+CREATE TABLE IF NOT EXISTS "logs"(
     "query"   TEXT,
     "timestamp"   TEXT
 )

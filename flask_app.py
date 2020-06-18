@@ -6,10 +6,15 @@ app = Flask(__name__)
 
 @app.route('/') 
 def sql_database():
-    from functions.sqlquery import sql_query
+    from functions.sqlquery import sql_edit_insert, sql_query, sql_input_query
+    from time import strftime
+    import sqlite3
     results = sql_query('''SELECT * FROM task_data''')
-    msg = 'SELECT * FROM task_data'
-    return render_template('sqldatabase.html', results=results, msg=msg) 
+    query = 'SELECT * FROM task_data'
+    timestamp = strftime("%a, %d %b %Y %H:%M:%S")
+    sql_edit_insert('''INSERT INTO logs(query, timestamp)
+        VALUES (?, ?)''', (query, timestamp))
+    return render_template('sqldatabase.html', results=results, msg=query) 
  
 @app.route('/insert',methods = ['POST', 'GET']) #this is when user submits an insert
 #def sql_datainsert():
