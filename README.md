@@ -90,9 +90,6 @@ WebAppChallenge
 
 ```
 
-## Finally
-
-Please do not hesitate to conact me via e-mail if anything is unclear at idlir.sh@gmail.com
 
 
 
