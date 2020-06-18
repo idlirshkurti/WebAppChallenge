@@ -1,0 +1,101 @@
+# The name of the virtual environment to be created to install package dependencies
+#
+# More info on how to maintain and extend this file, can be found here:
+# https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#
+#
+# Name should be the same as the use case name and of format:
+#
+#  - lowercase
+#  - contain at most 63 characters
+#  - contain only lowercase alphanumeric characters or ‘-’ (DASH), thus '_' (UNDERSCORE) is NOT ALLOWED
+#  - start with an alphanumeric character
+#  - end with an alphanumeric character
+#  - multiple words separated by DASHES
+#  - contains three components:
+#
+#    * TEAM-NAME - abbreviated, lowercase, minimum 2 and at maximum three characters, thus 'Data Science' becomes: ds
+#    * USECASE-NUMBER - minimum & maximum 3 integer positions, thus: 000..999
+#    * USECASE-NAME - lowercase, at maximum 56..57 alphanumeric characters, multiple words separated by dashes
+#
+#  The name format, thus becomes: <team-name(abbreviated)>-<usecase-number(000...999)>-<usecasename>
+#
+#  Note: '<' and '>' act as placeholders and should NOT be added to the actual name. The name of the Conda environment is
+#  also used as a namespace on kubernetes (the deployment cluster), therefore the Conda name needs to adhere to the conventions of namespaces.
+#  See for more information on namespaces: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-label-names
+#
+#  For example:
+#
+#  TEAM-NAME = data science = ds
+#  USECASE-NUMBER = 314
+#  USECASE-NAME = hello-nikola-tesla
+#
+#  The conda name in above example then becomes:
+#
+#  name: ds-314-hello-nikola-tesla
+#
+name: ds-002-graafschade
+
+# Conda channels are the locations where packages are stored. They serve as the base downloading packages
+# More info: https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html
+channels:
+  - defaults
+  - conda-forge
+
+# The (needed) packages to be installed, via the MAIN Conda package manger.
+#
+# It is STRONGLY recommended to install packages via Conda. ONLY WHEN IT IS NOT AVAILABLE via Conda channels (i.e. default / conda-forge),
+# THEN AND ONLY THEN, utilize pip package manager to register and download the concerning package.
+# Thus: Conda is the MAIN package manager, Pip is the SECONDARY aka FALLBACK package manager.
+
+# Adding dependencies must also include a short line describing what the package is and a link to the documentation of the concerning package,
+# thus the format is:
+#
+#   - package-name=version     # Short description of what the package entails - https://link-to-documentation-of-the-concerning-package
+#
+# Please adhere to the format, as it will make having a proper overview of dependencies and a quick reference to documentation of a dependency insightful,
+# for yourself, for others team members, other teams, now and in the future.
+
+# Add dependencies that comes with this project to the 'dependencies' block
+dependencies:
+# - package-name=version              # Short description of what the package entails - https://link-to-documentation-of-the-concerning-package
+  - Sphinx                            # Documentation generator - http://sphinx-doc.org
+  - coverage                          # Measuring tool for code coverage - https://github.com/nedbat/coveragepy
+  - flake8                            # Python code checkstyle: pep, flake8, co - http://flake8.pycqa.org/en/latest/
+  - scikit-learn==0.20.0              # Machine Learning & Data mining tool kit - https://scikit-learn.org/stable/
+  - pytest                            # Test library - https://docs.pytest.org/en/latest/
+  - pytest-cov                        # Measuring tool for code coverage - https://github.com/pytest-dev/pytest-cov
+  - pytest-azurepipelines             # Formatting tool for Pytest on Azure pipelines UI - https://github.com/tonybaloney/pytest-azurepipelines
+  - flask                             # Lightweight WSGI web application framework - https://flask.palletsprojects.com/en/1.1.x/
+  - flask-testing                     # Flask pytest fixtures - https://github.com/jarus/flask-testing
+  - flask_cors                        # Flask decorator for CORS support - https://github.com/corydolphin/flask-cors
+  - pytest-flask                      # WSGI web application library - https://github.com/vitalk/pytest-flask
+  - Werkzeug==0.16.1                  # A comprehensive WSGI web application library - https://palletsprojects.com/p/werkzeug, explicitly downgraded, DO NOT CHANGE VERSION, see: https://github.com/noirbizarre/flask-restplus/issues/777#issuecomment-583235327
+  - pip                               # Fallback package manager - https://pip.pypa.io/en/stable/
+  - openjdk                           # Java JDK - to add support for Hive2 connection, installs Java 1.8 - https://www.azul.com/downloads/zulu-community/?&architecture=x86-64-bit&package=jdk
+  - JPype1==0.7.0                     # Python Java Bridge - http://www.jpype.org - needed for Java DataBase Connection (JDBC) connections. DO NOT CHANGE VERSION, see: https://github.com/baztian/jaydebeapi/issues/99#issuecomment-515794291
+  #- jaydebeapi                       # DB-APIv2.0 compliant library for JDBC Drivers - needed for JDBC connections - https://github.com/baztian/jaydebeapi - KEEP THIS PACKAGE COMMENTED OUT AND DO NOT DELETE IT (IT IS CURRENTLY ADDED AS A STATIC LIBRARY)
+  - pandas==0.23.4                    # Dataframes - https://pandas.pydata.org/pandas-docs/stable/
+  - shapely                           # Geo data - https://shapely.readthedocs.io/en/latest/manual.html
+  - matplotlib                        # Plotting library - https://matplotlib.org/
+  - seaborn                           # Another plotting library - https://seaborn.pydata.org/api.html
+  - cmake                             # Cross-platform family of tools designed to build, test and package software - https://cmake.org
+  - pyodbc                            # Python ODBC bridge
+  - cmake                             # Cross-platform family of tools designed to build, test and package software - https://cmake.org
+  - voila                             # Library of interactive widgets for Jupyter notebooks - https://github.com/voila-dashboards/voila
+  - numpy==1.15.2                     # Library for array processing of numbers, strings, records, and objects - https://numpy.org
+  - cloudpickle==0.5.6                # Extension for pickling - https://github.com/cloudpipe/cloudpickle
+  - joblib                            # Library to allow parallel processing - https://joblib.readthedocs.io
+  #LINUX_PACKAGE#- xgboost==0.80           # Type of tree model (Needed for LINUX) - yes, this is added as duplicate and marked with the #LINUX_PACKAGE# placeholder, it is needed for the CI/CD pipeline DO NOT DELETE otherwise it will not work on LINUX - https://xgboost.readthedocs.io/en/latest/
+
+  # The (needed) packages to be installed, via the SECONDARY aka FALLBACK Pip package manger, because is NOT AVAILABLE via Conda,
+  # but IS AVAILABLE via pip packages, then and only then, register the concerning package in the `pip` dependencies block.
+  - pip:
+      - mlflow                        # Model lifecycle logging & monitoring tool (Needed for WINDOWS) - https://mlflow.org
+      - flask_classful                # Class based views for Flask - http://flask-classful.teracy.org
+      - flask-expects-json            # Decorator for REST endpoints in flask, validates JSON request data - https://github.com/fischerfredl/flask-expects-json
+      - azure-storage==0.36           # Microsoft Azure Storage SDK for Python, pinned to version 0.36 (DO NOT CHANGE THE VERSION) to support azure storage logging - https://github.com/Azure/azure-sdk-for-python
+      - azure-storage-logging         # Logging handlers to send logs to Azure Storage - https://github.com/michiya/azure-storage-logging
+      - azure-functions               # Azure functions interface - https://github.com/Azure/azure-functions-python-worker
+      - jsonschema                    # JSON schema validator - https://github.com/Julian/jsonschema
+      - xgboost==0.80 #WINDOWS_PACKAGE#     # Type of tree model (Needed for WINDOWS) - yes, this is added as duplicate and marked with the #WINDOWS_PACKAGE# placeholder, otherwise it will not work on WINDOWS - https://xgboost.readthedocs.io/en/latest/
+

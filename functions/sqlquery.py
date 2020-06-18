@@ -8,7 +8,7 @@ fname = 'input/task_data.csv'
 if os.path.exists('example.db'):
     os.remove('example.db')
 
-conn = sqlite3.connect('example.db')
+conn = sqlite3.connect('example.db', check_same_thread=False)
 cur = conn.cursor()
 
 cur.execute('DROP TABLE IF EXISTS example')
@@ -21,8 +21,16 @@ CREATE TABLE "task_data"(
 )
 ''')
 
+cur.execute('''
+CREATE TABLE "logs"(
+    "query"   TEXT,
+    "timestamp"   TEXT
+)
+''')
+
 with open(fname) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter = ',')
+    next(csv_reader)
     for row in csv_reader:
         print(row)
         id = row[0]
@@ -47,6 +55,13 @@ def sql_edit_insert(query,var):
     cur = conn.cursor()
     cur.execute(query,var)
     conn.commit()
+
+def sql_input_query(query,var):
+    cur = conn.cursor()
+    cur.execute(query,var)
+    conn.commit()
+    rows = cur.fetchall()
+    return rows
 
 def sql_delete(query,var):
     cur = conn.cursor()

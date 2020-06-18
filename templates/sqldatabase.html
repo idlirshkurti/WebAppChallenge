@@ -13,7 +13,7 @@
             <img src = 'http://www.itsimplified-ms.com/posts/photos/databases.png'>
             </div>
             <div style='padding-top: 20px; padding-left:20px;'><h3>
-             A Slick CRUD Application Built Using Python With Flask and SQLite3 to Teach Simple mySQL Queries
+            Web App built using Python with Flask and SQLite3 to access a SQL database
             </h3></div>
         </div> <!--ends intro -->
 
@@ -24,16 +24,13 @@
         {% if 'query_edit' in request.url %}
         <div style='margin-left: 100px; width: 45%;'>
         <div class="alert alert-info" role="alert">
-         <strong>Your turn!</strong> Edit your selected data line here ...
+         <strong>Select rows by giving an ID</strong>  ...
         </div>
 
         {% for eresult in eresults %}
 
         <form action = "edit" method = "POST">
             <p>id: <input class="form-control" type = "text" name = "id" style='width: 100%;' /></p>
-            <p>timestamp: <input class="form-control" type = "text" name = "timestamp" style='width: 100%;' /></p>
-            <p>temperature: <input class="form-control" type = "text" name = "temperature" style='width: 100%;' /></p>
-            <p>duration: <input class="form-control" type = "text" name = "duration" style='width: 100%;' /></p>
          <input type ="hidden" name = "old_first_name" value='{{eresult["first_name"]}}' />
          <input type ="hidden" name = "old_last_name" value='{{eresult["last_name"]}}' />
 
@@ -48,14 +45,11 @@
         {% else %}
         <div style='margin-left: 100px; width: 45%;'>
         <div class="alert alert-info" role="alert">
-        <strong>Your turn!</strong> Insert your new data line with this form ...
+        <strong>Select desired row by giving an ID</strong>
         </div>
         
-        <form action = "insert" method = "POST">
+        <form action = "filter" method = "POST">
          <p>id: <input class="form-control" type = "text" name = "id" style='width: 100%;' /></p>
-         <p>timestamp: <input class="form-control" type = "text" name = "timestamp" style='width: 100%;' /></p>
-         <p>temperature: <input class="form-control" type = "text" name = "temperature" style='width: 100%;' /></p>
-         <p>duration: <input class="form-control" type = "text" name = "duration" style='width: 100%;' /></p>
          <br>
 
          <p><input class="btn-primary" type = "submit" value = "Insert Data" /></p>
@@ -68,7 +62,7 @@
 
         <div style='margin-left: 20px; width: 45%;'>
         <div class="alert alert-warning" role="alert">
-         <strong>Awesome!</strong> Here is your mySQL code ...
+         Here is your mySQL code
         </div>
         {{msg}}
         </div>
