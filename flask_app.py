@@ -17,18 +17,6 @@ def sql_database():
     return render_template('sqldatabase.html', results=results, msg=query) 
  
 @app.route('/insert',methods = ['POST', 'GET']) #this is when user submits an insert
-#def sql_datainsert():
-#    from functions.sqlquery import sql_edit_insert, sql_query
-#    if request.method == 'POST':
-#        id = request.form['id']
-#        timestamp = request.form['timestamp']
-#        temperature = request.form['temperature']
-#        duration = request.form['duration']
-#        sql_edit_insert('''INSERT INTO task_data(id ,timestamp ,temperature , duration)
-#        VALUES (?, ?, ?, ?)''', (id ,timestamp ,temperature , duration))
-#    results = sql_query(''' SELECT * FROM task_data''')
-#    msg = 'INSERT INTO task_data(id ,timestamp ,temperature , duration) VALUES ('+id+','+timestamp+','+temperature+','+duration+')'
-#    return render_template('sqldatabase.html', results=results, msg=msg) 
 
 
 @app.route('/filter',methods = ['POST', 'GET']) #this is when user submits an insert
@@ -50,10 +38,6 @@ def sql_datainsert():
     sql_edit_insert('''INSERT INTO logs(query, timestamp)
         VALUES (?, ?)''', (query, timestamp))
 
- #   conn = sqlite3.connect('example.db', check_same_thread=False)
- #   cur = conn.cursor()
- #   cur.execute('''INSERT INTO logs(query, timestamp)
- #       VALUES (?, ?)''', (query, timestamp))
     return render_template('sqldatabase.html', results=results, msg=query) 
 
 
